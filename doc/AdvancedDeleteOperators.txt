@@ -1,0 +1,107 @@
+*AdvancedDeleteOperators.txt*	More operators to delete and change text.
+
+		 ADVANCED DELETE OPERATORS    by Ingo Karkat
+						 *AdvancedDeleteOperators.vim*
+description			|AdvancedDeleteOperators-description|
+usage				|AdvancedDeleteOperators-usage|
+installation			|AdvancedDeleteOperators-installation|
+configuration			|AdvancedDeleteOperators-configuration|
+integration			|AdvancedDeleteOperators-integration|
+limitations			|AdvancedDeleteOperators-limitations|
+known problems			|AdvancedDeleteOperators-known-problems|
+todo				|AdvancedDeleteOperators-todo|
+history				|AdvancedDeleteOperators-history|
+
+==============================================================================
+DESCRIPTION				 *AdvancedDeleteOperators-description*
+
+This plugin ...
+
+HOW IT WORKS								     *
+
+SOURCE									     *
+(Original Vim tip, Stack Overflow answer, ...)
+
+SEE ALSO								     *
+(Plugins offering complementary functionality, or plugins using this library.)
+
+RELATED WORKS								     *
+(Alternatives from other authors, other approaches, references not used here.)
+
+==============================================================================
+USAGE					       *AdvancedDeleteOperators-usage*
+							 *c<Space>* *d<Space>*
+c<Space>{motion}	Delete text that {motion} moves over, reduce any
+			whitespace after it to a single space, and start
+			insert.
+d<Space>{motion}	Delete text that {motion} moves over and reduce any
+			whitespace after it to a single space.
+							       *c<BS>* *d<BS>*
+c<BS>{motion}		Delete text that {motion} moves over, remove any
+			whitespace after it, and start insert.
+d<BS>{motion}		Delete text that {motion} moves over and remove any
+			whitespace after it.
+
+EXAMPLE					     *AdvancedDeleteOperators-example*
+
+==============================================================================
+INSTALLATION				*AdvancedDeleteOperators-installation*
+
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-AdvancedDeleteOperators
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim |packages|. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a |vimball|. If you have the "gunzip"
+decompressor in your PATH, simply edit the *.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the |:UseVimball| command. >
+    vim AdvancedDeleteOperators*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES				*AdvancedDeleteOperators-dependencies*
+
+- Requires Vim 7.0 or higher.
+
+==============================================================================
+CONFIGURATION			       *AdvancedDeleteOperators-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|:
+configvar
+					       *AdvancedDeleteOperators-remap*
+plugmap
+==============================================================================
+INTEGRATION				 *AdvancedDeleteOperators-integration*
+
+==============================================================================
+LIMITATIONS				 *AdvancedDeleteOperators-limitations*
+
+KNOWN PROBLEMS			      *AdvancedDeleteOperators-known-problems*
+
+TODO						*AdvancedDeleteOperators-todo*
+
+IDEAS					       *AdvancedDeleteOperators-ideas*
+
+CONTRIBUTING				  *AdvancedDeleteOperators-contribute*
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-AdvancedDeleteOperators/issues or email (address below).
+
+==============================================================================
+HISTORY					     *AdvancedDeleteOperators-history*
+
+GOAL
+First published version.
+
+0.01	11-Jul-2019
+Started development.
+
+==============================================================================
+Copyright: (C) 2019 Ingo Karkat
+The VIM LICENSE applies to this plugin; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
