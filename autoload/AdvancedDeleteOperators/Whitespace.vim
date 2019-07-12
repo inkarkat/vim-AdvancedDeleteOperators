@@ -39,6 +39,7 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
 	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
 	return
     endif
+    let l:isWhitespaceAtEndOfLine = (search('\%(' . l:trailingWhitespacePattern . '\)$', 'cnW') != 0)
     let l:whitespaceStartPos = searchpos(l:trailingWhitespacePattern, 'cW', l:endLnum)
     let l:whitespace = ingo#text#Get(getpos('.')[1:2], l:whitespaceEndPos)
 
@@ -64,7 +65,7 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
     call ingo#text#Replace(
     \   [l:endLnum, l:whitespaceStartPos[1] - l:endLineDeleteOffset],
     \   len(l:whitespace),
-    \   (a:keepCnt == 0 ? '' : ' ')
+    \   (a:keepCnt == 0 || l:isWhitespaceAtEndOfLine ? '' : ' ')
     \)
 
     if a:operator ==# 'c'

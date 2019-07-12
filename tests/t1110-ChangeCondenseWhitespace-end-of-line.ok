@@ -1,0 +1,12 @@
+[default text]
+Function is foo(bar, baz, hehe, hihi, hoho) for a reason.
+my	foo(here)not-separated
+my	foo(here) plain-separated
+my      foo(here)    space-separated
+my	foo(here)	tab-separated
+my	foo(here)	    softtabstop-separated
+my	foo(here)    		    mixed-separated
+my      foo(here)	NEW
+
+our	foo(here) bar(there) plain-separated
+EOF

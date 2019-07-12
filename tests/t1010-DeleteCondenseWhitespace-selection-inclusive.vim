@@ -35,6 +35,6 @@ call Assert('"', 8, '', 'my	foo(here)    		    mixed-separated', 'no delete beca
 
 let @" = ''
 execute '9normal wv$,d '
-call Assert('"', 9, 'foo(here)	trailing white', 'my       ', 'delete to trailing whitespace')
+call Assert('"', 9, 'foo(here)	trailing white', 'my      ', 'delete to trailing whitespace does not insert a trailing space')
 
 call vimtest#Quit()

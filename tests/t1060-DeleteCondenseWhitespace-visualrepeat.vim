@@ -2,7 +2,7 @@
 
 edit input.txt
 call vimtest#StartTap()
-call vimtap#Plan(0)
+call vimtap#Plan(8)
 
 let @" = ''
 execute '2normal 2wvf),d '
