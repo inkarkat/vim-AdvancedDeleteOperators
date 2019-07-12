@@ -145,6 +145,36 @@ if ! hasmapto('<Plug>(DeleteLinesAndEmptyAround)', 'v')
     xmap ,dS <Plug>(DeleteLinesAndEmptyAround)
 endif
 
+
+
+"- indent ----------------------------------------------------------------------
+
+" We cannot :call the function and let Vim pass the a:firstline, a:lastline
+" range, as we need to do error handling with :if. Instead, first yank the
+" range, as this sets the '[,'] marks to the exact range. Then we can simply use
+" those marks inside the function, and don't need to do the (complex with folded
+" lines) arithmetic to turn [count] into a range.
+" Need :map-expr here to both pass v:register to yy and later to the function.
+nnoremap <silent> <expr> <Plug>(DeleteLinesAndDropCommonIndent)
+\ 'yy' . ':<C-u>call setline('.', getline('.'))<Bar>if ! AdvancedDeleteOperators#Indent#DeleteLinesAndDropCommonIndent(' . string(v:register) . ')<Bar>echoerr ingo#err#Get()<Bar>endif<CR>'
+vnoremap <silent> <expr> <Plug>(DeleteLinesAndDropCommonIndent)
+\ 'y' . ':<C-u>call setline('.', getline('.'))<Bar>if ! AdvancedDeleteOperators#Indent#DeleteLinesAndDropCommonIndent(' . string(v:register) . ')<Bar>echoerr ingo#err#Get()<Bar>endif<CR>'
+if ! hasmapto('<Plug>(DeleteLinesAndDropCommonIndent)', 'n')
+    nmap dii <Plug>(DeleteLinesAndDropCommonIndent)
+endif
+if ! hasmapto('<Plug>(DeleteLinesAndDropCommonIndent)', 'v')
+    xmap ,di <Plug>(DeleteLinesAndDropCommonIndent)
+endif
+
+nnoremap <silent> <expr> <Plug>(DeleteLinesAndAllIndent) 'dd' . ':<C-u>call setline('.', getline('.'))<Bar>if ! AdvancedDeleteOperators#Indent#DeleteLinesAndAllIndent(' . string(v:register) . ')<Bar>echoerr ingo#err#Get()<Bar>endif<CR>'
+vnoremap <silent> <expr> <Plug>(DeleteLinesAndAllIndent) 'd' . ':<C-u>call setline('.', getline('.'))<Bar>if ! AdvancedDeleteOperators#Indent#DeleteLinesAndAllIndent(' . string(v:register) . ')<Bar>echoerr ingo#err#Get()<Bar>endif<CR>'
+if ! hasmapto('<Plug>(DeleteLinesAndAllIndent)', 'n')
+    nmap dII <Plug>(DeleteLinesAndAllIndent)
+endif
+if ! hasmapto('<Plug>(DeleteLinesAndAllIndent)', 'v')
+    xmap ,dI <Plug>(DeleteLinesAndAllIndent)
+endif
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :

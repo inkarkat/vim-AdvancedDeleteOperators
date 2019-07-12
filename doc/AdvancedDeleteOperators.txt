@@ -105,6 +105,16 @@ AROUND									     *
 			above and below.
 
 
+INDENT									     *
+								 *dii* *v_,di*
+["x]dii			Delete [count] lines, and drop common indent.
+{Visual}["x],di		Delete the selection, and drop common indent.
+								 *dII* *v_,dI*
+["x]dII			Delete [count] lines, and drop all indent and trailing
+			whitespace.
+{Visual}["x],dI		Delete the selection, and drop all indent and trailing
+			whitespace.
+
 EXAMPLE					     *AdvancedDeleteOperators-example*
 
 ==============================================================================
