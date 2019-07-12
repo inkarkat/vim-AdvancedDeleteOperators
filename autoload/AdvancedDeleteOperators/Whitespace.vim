@@ -24,14 +24,31 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
 	call ingo#change#Set(getpos("'<"), ingo#selection#GetInclusiveEndPos())
     endif
 
+    let l:trailingWhitespacePattern = '\s*\%'']\s\+\|\s\+\%'']$\|\%''].\zs\s\+'
+    let l:startPos = getpos("'[")
     let l:endLnum = line("']")
+    let l:endLineLen = len(getline(l:endLnum))
+
+    " Locate the area of trailing whitespace; as the motion / selection may
+    " include or exclude it, search from the start of the line, using the ']
+    " mark as an anchor.
     call setpos('.', [0, l:endLnum, 1, 0])
-    if search('\s*\%'']\s\|\s\+\%'']$\|\%''].\zs\s', 'cW', l:endLnum) == 0
+    let l:whitespaceEndPos = searchpos(l:trailingWhitespacePattern, 'cenW', l:endLnum)
+    if l:whitespaceEndPos == [0, 0]
 	call winrestview(l:save_view)
 	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
 	return
     endif
+    let l:whitespaceStartPos = searchpos(l:trailingWhitespacePattern, 'cW', l:endLnum)
+    let l:whitespace = ingo#text#Get(getpos('.')[1:2], l:whitespaceEndPos)
 
+    " If we'd remove the trailing whitespace first, we'd run into problems at
+    " the end of the line, as we can't position the cursor behind the motion /
+    " selection without :set virtualedit=onemore. Instead, delete the text first
+    " and then adapt the whitespace area for the removed text. We do a delta of
+    " the line's length for the calculation; this way, we don't need to capture
+    " the deleted text nor do we need to account for multi-line text.
+    "
     " Note: Need to use an "exclusive" selection to exclude the current position
     " (the first following whitespace).
     let l:save_selection = &selection
@@ -41,9 +58,14 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
     finally
 	let &selection = l:save_selection
     endtry
+    let l:endLineDeleteOffset = l:endLineLen - len(getline(l:endLnum))
 
-    " Condense / delete the leading and trailing whitespace
-    execute 'normal!' (a:keepCnt == 0 ? '"_diw' : "\"_ciw \<Esc>")
+    " Condense / delete the trailing whitespace.
+    call ingo#text#Replace(
+    \   [l:endLnum, l:whitespaceStartPos[1] - l:endLineDeleteOffset],
+    \   len(l:whitespace),
+    \   (a:keepCnt == 0 ? '' : ' ')
+    \)
 
     if a:operator ==# 'c'
 	call ingo#cursor#StartInsert()
