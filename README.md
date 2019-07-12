@@ -29,6 +29,8 @@ but also remove trailing whitespace (or condense it to a single space).
 USAGE
 ------------------------------------------------------------------------------
 
+### WHITESPACE
+
     ["x]c<Space>{motion}    Delete text that {motion} moves over [into
                             register x], reduce any whitespace after it to a
                             single space, and start insert.
@@ -49,6 +51,58 @@ USAGE
                             and remove any whitespace after it.
     {Visual}["x]d<BS>       Delete selected text [into register x] and remove any
                             whitespace after it.
+
+### BLACK HOLE
+
+    X, v_X                  Delete [count] characters under and after the cursor
+                            without affecting any registers. Useful when you want
+                            to re-use the previous delete into the unnamed
+                            register.
+                            Note: I never used the original X, which can be done
+                            via either "dh[dh...]" or "i<BS>[<BS>...]<Esc>".
+
+    cX{motion}              Delete text that {motion} moves over without affecting
+                            any registers and start insert.
+    cXX                     Delete [count] lines without affecting any registers
+                            and start insert.
+    dX{motion}              Delete text that {motion} moves over without affecting
+                            any registers.
+    dXX                     Delete [count] lines without affecting any registers.
+
+### REMAINDER
+
+    ["x]dDD                 Delete the characters under the cursor until the end
+                            of the line and [count]-1 more lines [into register
+                            x], and delete the remainder of the line (i.e. the
+                            characters before the cursor) and possibly following
+                            empty line(s) without affecting a register.
+    ["x]dD{motion}          Delete text that {motion} moves over [into register x]
+                            and delete the remainder of the line(s) and possibly
+                            following empty line(s) without affecting a register.
+    {Visual}["x],dD         Delete the highlighted text [into register x] and
+                            delete the remainder of the selected line(s) and
+                            possibly following empty line(s) without affecting a
+                            register.
+
+### AROUND
+
+    ["x]dK                  Delete the current line (and [count] - 1 lines above)
+                            and move to the line above the deleted ones.
+
+    ["x]dSS                 Delete [count] lines and remove any empty line(s)
+                            above and below.
+    {Visual}["x],dS         Delete the selection and remove any empty line(s)
+                            above and below.
+
+### INDENT
+
+    ["x]dii                 Delete [count] lines, and drop common indent.
+    {Visual}["x],di         Delete the selection, and drop common indent.
+
+    ["x]dII                 Delete [count] lines, and drop all indent and trailing
+                            whitespace.
+    {Visual}["x],dI         Delete the selection, and drop all indent and trailing
+                            whitespace.
 
 INSTALLATION
 ------------------------------------------------------------------------------
@@ -79,7 +133,11 @@ CONFIGURATION
 ------------------------------------------------------------------------------
 
 For a permanent configuration, put the following commands into your vimrc:
-configvar
+
+To avoid defining the mappings that default to quote\_ (and clobber the X
+command):
+
+    let g:AdvancedDeleteOperators_no_blackhole_mappings = 1
 
 If you want to use different mappings, map your keys to the following mapping
 targets _before_ sourcing the script (e.g. in your vimrc):
@@ -107,10 +165,13 @@ HISTORY
 First published version.
 
 ##### 0.01    11-Jul-2019
-- Started development.
+- Started development as separate plugin.
+
+##### 0.00    02-Sep-2011
+- Defined first mapping as part of my personal customizations.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2019 Ingo Karkat -
+Copyright: (C) 2011-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;

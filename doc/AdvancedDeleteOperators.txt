@@ -184,10 +184,13 @@ GOAL
 First published version.
 
 0.01	11-Jul-2019
-Started development.
+Started development as separate plugin.
+
+0.00	02-Sep-2011
+Defined first mapping as part of my personal customizations.
 
 ==============================================================================
-Copyright: (C) 2019 Ingo Karkat
+Copyright: (C) 2011-2019 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
