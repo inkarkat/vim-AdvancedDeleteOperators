@@ -83,6 +83,12 @@ endfunction
 function! AdvancedDeleteOperators#Whitespace#ChangeCondenseOperator( type, ...) abort
     call call('s:Operator', ['c', 1, a:type] + a:000)
 endfunction
+function! AdvancedDeleteOperators#Whitespace#DeleteRemoveOperator( type, ...) abort
+    call call('s:Operator', ['d', 0, a:type] + a:000)
+endfunction
+function! AdvancedDeleteOperators#Whitespace#ChangeRemoveOperator( type, ...) abort
+    call call('s:Operator', ['c', 0, a:type] + a:000)
+endfunction
 
 function! AdvancedDeleteOperators#Whitespace#OperatorExpression( operator, keepCnt ) abort
     let &opfunc = 'AdvancedDeleteOperators#Whitespace#' . s:GetName(a:operator, a:keepCnt) . 'Operator'

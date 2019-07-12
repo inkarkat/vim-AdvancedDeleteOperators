@@ -19,6 +19,8 @@ set cpo&vim
 " able to repeat the g@ on its own.
 nnoremap <expr> <Plug>(DeleteCondenseWhitespaceOperator) AdvancedDeleteOperators#Whitespace#OperatorExpression('d', 1)
 nnoremap <expr> <Plug>(ChangeCondenseWhitespaceOperator) AdvancedDeleteOperators#Whitespace#OperatorExpression('c', 1)
+nnoremap <expr> <Plug>(DeleteRemoveWhitespaceOperator)   AdvancedDeleteOperators#Whitespace#OperatorExpression('d', 0)
+nnoremap <expr> <Plug>(ChangeRemoveWhitespaceOperator)   AdvancedDeleteOperators#Whitespace#OperatorExpression('c', 0)
 
 " Repeat not defined in visual mode, but enabled through visualrepeat.vim.
 vnoremap <silent> <Plug>(DeleteCondenseWhitespaceVisual)
@@ -27,6 +29,12 @@ vnoremap <silent> <Plug>(DeleteCondenseWhitespaceVisual)
 vnoremap <silent> <Plug>(ChangeCondenseWhitespaceVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call AdvancedDeleteOperators#Whitespace#ChangeCondenseOperator('visual', 1)<CR>
+vnoremap <silent> <Plug>(DeleteRemoveWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\call AdvancedDeleteOperators#Whitespace#DeleteRemoveOperator('visual', 1)<CR>
+vnoremap <silent> <Plug>(ChangeRemoveWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\call AdvancedDeleteOperators#Whitespace#ChangeRemoveOperator('visual', 1)<CR>
 
 " A normal-mode repeat of the visual mapping is triggered by repeat.vim. It
 " establishes a new selection at the cursor position, of the same mode and size
@@ -43,6 +51,14 @@ nnoremap <silent> <Plug>(ChangeCondenseWhitespaceVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' AdvancedDeleteOperators#VisualMode()<Bar>
 \call AdvancedDeleteOperators#Whitespace#ChangeCondenseOperator('visual', 1)<CR>
+nnoremap <silent> <Plug>(DeleteRemoveWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\execute 'normal!' AdvancedDeleteOperators#VisualMode()<Bar>
+\call AdvancedDeleteOperators#Whitespace#DeleteRemoveOperator('visual', 1)<CR>
+nnoremap <silent> <Plug>(ChangeRemoveWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\execute 'normal!' AdvancedDeleteOperators#VisualMode()<Bar>
+\call AdvancedDeleteOperators#Whitespace#ChangeRemoveOperator('visual', 1)<CR>
 
 
 if ! hasmapto('<Plug>(DeleteCondenseWhitespaceOperator)', 'n')
@@ -56,6 +72,18 @@ if ! hasmapto('<Plug>(ChangeCondenseWhitespaceOperator)', 'n')
 endif
 if ! hasmapto('<Plug>(ChangeCondenseWhitespaceVisual)', 'x')
     xmap ,c<Space> <Plug>(ChangeCondenseWhitespaceVisual)
+endif
+if ! hasmapto('<Plug>(DeleteRemoveWhitespaceOperator)', 'n')
+    nmap d<BS> <Plug>(DeleteRemoveWhitespaceOperator)
+endif
+if ! hasmapto('<Plug>(DeleteRemoveWhitespaceVisual)', 'x')
+    xmap ,d<BS> <Plug>(DeleteRemoveWhitespaceVisual)
+endif
+if ! hasmapto('<Plug>(ChangeRemoveWhitespaceOperator)', 'n')
+    nmap c<BS> <Plug>(ChangeRemoveWhitespaceOperator)
+endif
+if ! hasmapto('<Plug>(ChangeRemoveWhitespaceVisual)', 'x')
+    xmap ,c<BS> <Plug>(ChangeRemoveWhitespaceVisual)
 endif
 
 
