@@ -14,7 +14,7 @@ function! s:GetName( operator, keepCnt ) abort
     \   (a:keepCnt == 0 ? 'Remove' : 'Condense')
 endfunction
 function! s:Operator( operator, keepCnt, type, ... ) abort
-    let l:repeatMapping = "\<Plug>(" . s:GetName(a:operator, a:keepCnt) . 'Whitespace)'
+    let l:repeatMapping = "\<Plug>(" . s:GetName(a:operator, a:keepCnt) . 'WhitespaceVisual)'
     silent! call repeat#setreg(l:repeatMapping, v:register)
     let l:save_count = v:count
     let l:save_view = winsaveview()
@@ -23,15 +23,14 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
 	" Consistently use inclusive change marks.
 	call ingo#change#Set(getpos("'<"), ingo#selection#GetInclusiveEndPos())
     endif
-echomsg '****' string(getpos("']"))
+
     let l:endLnum = line("']")
     call setpos('.', [0, l:endLnum, 1, 0])
-    if search('\s*\%'']\s\|\%''].\zs\s', 'cW', l:endLnum) == 0
+    if search('\s*\%'']\s\|\s\+\%'']$\|\%''].\zs\s', 'cW', l:endLnum) == 0
 	call winrestview(l:save_view)
 	execute "normal! \<C-\>\<C-n>\<Esc>" | " Beep.
 	return
     endif
-echomsg '****' string(getpos("."))
 
     " Note: Need to use an "exclusive" selection to exclude the current position
     " (the first following whitespace).
@@ -43,7 +42,7 @@ echomsg '****' string(getpos("."))
 	let &selection = l:save_selection
     endtry
 
-    " Condense / delete the trailing whitespace
+    " Condense / delete the leading and trailing whitespace
     execute 'normal!' (a:keepCnt == 0 ? '"_diw' : "\"_ciw \<Esc>")
 
     if a:operator ==# 'c'

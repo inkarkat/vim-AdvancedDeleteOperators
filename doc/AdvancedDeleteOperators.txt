@@ -32,15 +32,15 @@ RELATED WORKS								     *
 USAGE					       *AdvancedDeleteOperators-usage*
 							 *c<Space>* *d<Space>*
 c<Space>{motion}	Delete text that {motion} moves over, reduce any
-			whitespace after it to a single space, and start
+			remaining whitespace to a single space, and start
 			insert.
 d<Space>{motion}	Delete text that {motion} moves over and reduce any
-			whitespace after it to a single space.
+			remaining whitespace to a single space.
 							       *c<BS>* *d<BS>*
 c<BS>{motion}		Delete text that {motion} moves over, remove any
-			whitespace after it, and start insert.
+			remaining whitespace, and start insert.
 d<BS>{motion}		Delete text that {motion} moves over and remove any
-			whitespace after it.
+			remaining whitespace.
 
 EXAMPLE					     *AdvancedDeleteOperators-example*
 
