@@ -2,7 +2,7 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2019 Ingo Karkat
+" Copyright: (C) 2015-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -100,6 +100,24 @@ nnoremap cX "_c
 nnoremap cXX "_cc
 nnoremap dX "_d
 nnoremap dXX "_dd
+endif
+
+
+
+"- remainder -------------------------------------------------------------------
+
+nnoremap <expr> <SID>(DeleteCurrentAndFollowingEmptyLines) AdvancedDeleteOperators#Remainder#DeleteCurrentAndFollowingEmptyLines()
+nnoremap <script> <Plug>(DeleteCurrentAndFollowingEmptyLine) D<SID>(DeleteCurrentAndFollowingEmptyLines)
+nnoremap <expr> <Plug>(DeleteCurrentAndFollowingEmptyOperator) AdvancedDeleteOperators#Remainder#DeleteCurrentAndFollowingEmptyLinesOperatorExpression()
+xnoremap <script> <Plug>(DeleteCurrentAndFollowingEmptyVisual) d<SID>(DeleteCurrentAndFollowingEmptyLines)
+if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyLine)', 'n')
+    nmap dDD <Plug>(DeleteCurrentAndFollowingEmptyLine)
+endif
+if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyOperator)', 'n')
+    nmap dD <Plug>(DeleteCurrentAndFollowingEmptyOperator)
+endif
+if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyVisual)', 'v')
+    nmap ,dD <Plug>(DeleteCurrentAndFollowingEmptyVisual)
 endif
 
 let &cpo = s:save_cpo

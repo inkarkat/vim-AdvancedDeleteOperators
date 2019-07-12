@@ -78,6 +78,22 @@ dX{motion}		Delete text that {motion} moves over without affecting
 			any registers.
 dXX			Delete [count] lines without affecting any registers.
 
+
+REMAINDER								     *
+							    *dDD* *dD* *v_,dD*
+["x]dDD			Delete the characters under the cursor until the end
+			of the line and [count]-1 more lines [into register
+			x], and delete the remainder of the line (i.e. the
+			characters before the cursor) and possibly following
+			empty line(s) without affecting a register.
+["x]dD{motion}		Delete text that {motion} moves over [into register x]
+			and delete the remainder of the line(s) and possibly
+			following empty line(s) without affecting a register.
+{Visual}["x],dD		Delete the highlighted text [into register x] and
+			delete the remainder of the selected line(s) and
+			possibly following empty line(s) without affecting a
+			register.
+
 EXAMPLE					     *AdvancedDeleteOperators-example*
 
 ==============================================================================
