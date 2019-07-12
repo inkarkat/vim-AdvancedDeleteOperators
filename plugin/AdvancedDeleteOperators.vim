@@ -15,6 +15,8 @@ let g:loaded_AdvancedDeleteOperators = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+"- whitespace ------------------------------------------------------------------
+
 " This mapping repeats naturally, because it just sets global things, and Vim is
 " able to repeat the g@ on its own.
 nnoremap <expr> <Plug>(DeleteCondenseWhitespaceOperator) AdvancedDeleteOperators#Whitespace#OperatorExpression('d', 1)
@@ -87,6 +89,18 @@ if ! hasmapto('<Plug>(ChangeRemoveWhitespaceVisual)', 'x')
 endif
 
 
+
+"- blackhole -------------------------------------------------------------------
+
+if ! exists('g:AdvancedDeleteOperators_no_blackhole_mappings')
+nnoremap X "_x
+xnoremap X "_x
+
+nnoremap cX "_c
+nnoremap cXX "_cc
+nnoremap dX "_d
+nnoremap dXX "_dd
+endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

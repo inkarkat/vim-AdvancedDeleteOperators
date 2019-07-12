@@ -37,6 +37,8 @@ RELATED WORKS								     *
 
 ==============================================================================
 USAGE					       *AdvancedDeleteOperators-usage*
+
+WHITESPACE								     *
 			       *c<Space>* *v_c<Space>* *d<Space>* *v_d<Space>*
 ["x]c<Space>{motion}	Delete text that {motion} moves over [into
 			register x], reduce any whitespace after it to a
@@ -58,6 +60,23 @@ USAGE					       *AdvancedDeleteOperators-usage*
 			and remove any whitespace after it.
 {Visual}["x]d<BS>	Delete selected text [into register x] and remove any
 			whitespace after it.
+
+BLACK HOLE								     *
+								     *X* *v_X*
+X, v_X			Delete [count] characters under and after the cursor
+			without affecting any registers. Useful when you want
+			to re-use the previous delete into the unnamed
+			register.
+			Note: I never used the original |X|, which can be done
+			via either "dh[dh...]" or "i<BS>[<BS>...]<Esc>".
+							 *cX* *cXX* *dX* *dXX*
+cX{motion}		Delete text that {motion} moves over without affecting
+			any registers and start insert.
+cXX			Delete [count] lines without affecting any registers
+			and start insert.
+dX{motion}		Delete text that {motion} moves over without affecting
+			any registers.
+dXX			Delete [count] lines without affecting any registers.
 
 EXAMPLE					     *AdvancedDeleteOperators-example*
 
@@ -88,7 +107,12 @@ DEPENDENCIES				*AdvancedDeleteOperators-dependencies*
 CONFIGURATION			       *AdvancedDeleteOperators-configuration*
 
 For a permanent configuration, put the following commands into your |vimrc|:
-configvar
+			     *g:AdvancedDeleteOperators_no_blackhole_mappings*
+To avoid defining the mappings that default to |quote_| (and clobber the X
+command): >
+    let g:AdvancedDeleteOperators_no_blackhole_mappings = 1
+<
+
 					       *AdvancedDeleteOperators-remap*
 If you want to use different mappings, map your keys to the following mapping
 targets _before_ sourcing the script (e.g. in your |vimrc|): >
