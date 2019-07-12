@@ -1,6 +1,7 @@
 " AdvancedDeleteOperators.vim: More operators to delete and change text.
 "
 " DEPENDENCIES:
+"   - ingo-library.vim plugin
 "
 " Copyright: (C) 2015-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -118,6 +119,30 @@ if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyOperator)', 'n')
 endif
 if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyVisual)', 'v')
     nmap ,dD <Plug>(DeleteCurrentAndFollowingEmptyVisual)
+endif
+
+
+
+"- around ----------------------------------------------------------------------
+
+nnoremap <silent> <Plug>(DeleteAndGoAbove)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\if ! AdvancedDeleteOperators#Around#DeleteAndGoAbove(v:count)<Bar>echoerr ingo#err#Get()<Bar>endif<CR>
+if ! hasmapto('<Plug>(DeleteAndGoAbove)', 'n')
+    nmap dK <Plug>(DeleteAndGoAbove)
+endif
+
+nnoremap <silent> <Plug>(DeleteLinesAndEmptyAround)
+\ dd:<C-u>call setline('.', getline('.'))<Bar>
+\call AdvancedDeleteOperators#Around#DeleteLinesAndEmptyAround()<CR>
+vnoremap <silent> <Plug>(DeleteLinesAndEmptyAround)
+\ d:<C-u>call setline('.', getline('.'))<Bar>
+\call AdvancedDeleteOperators#Around#DeleteLinesAndEmptyAround()<CR>
+if ! hasmapto('<Plug>(DeleteLinesAndEmptyAround)', 'n')
+    nmap dSS <Plug>(DeleteLinesAndEmptyAround)
+endif
+if ! hasmapto('<Plug>(DeleteLinesAndEmptyAround)', 'v')
+    xmap ,dS <Plug>(DeleteLinesAndEmptyAround)
 endif
 
 let &cpo = s:save_cpo

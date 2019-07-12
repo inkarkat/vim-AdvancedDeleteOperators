@@ -94,6 +94,17 @@ REMAINDER								     *
 			possibly following empty line(s) without affecting a
 			register.
 
+AROUND									     *
+									  *dK*
+["x]dK			Delete the current line (and [count] - 1 lines above)
+			and move to the line above the deleted ones.
+								 *dSS* *v_,dS*
+["x]dSS			Delete [count] lines and remove any empty line(s)
+			above and below.
+{Visual}["x],dS		Delete the selection and remove any empty line(s)
+			above and below.
+
+
 EXAMPLE					     *AdvancedDeleteOperators-example*
 
 ==============================================================================
