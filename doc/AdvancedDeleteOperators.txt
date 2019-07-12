@@ -6,7 +6,6 @@ description			|AdvancedDeleteOperators-description|
 usage				|AdvancedDeleteOperators-usage|
 installation			|AdvancedDeleteOperators-installation|
 configuration			|AdvancedDeleteOperators-configuration|
-integration			|AdvancedDeleteOperators-integration|
 limitations			|AdvancedDeleteOperators-limitations|
 known problems			|AdvancedDeleteOperators-known-problems|
 todo				|AdvancedDeleteOperators-todo|
@@ -15,9 +14,17 @@ history				|AdvancedDeleteOperators-history|
 ==============================================================================
 DESCRIPTION				 *AdvancedDeleteOperators-description*
 
-This plugin ...
-
-HOW IT WORKS								     *
+Editing text mainly means changing or deleting stuff, in the latter case often
+to paste it somewhere else. Often, some whitespace is "in the way": For
+example, you want to change some text, and there's a convenient motion to the
+end of it. But the whitespace after that has to be removed as well. It's then
+either visual mode to really select what you need, or a separate removal after
+the edit which breaks repeatability with the |.| command. Or you want to
+delete a text column (including trailing whitespace), but then want to reuse
+only the text without the spaces.
+This plugin provides additional |c|hange and |d|elete operators that work on
+moved-over text or a selection (just like the original built-in operators),
+but also remove trailing whitespace (or condense it to a single space).
 
 SOURCE									     *
 (Original Vim tip, Stack Overflow answer, ...)
@@ -30,16 +37,26 @@ RELATED WORKS								     *
 
 ==============================================================================
 USAGE					       *AdvancedDeleteOperators-usage*
-							 *c<Space>* *d<Space>*
-c<Space>{motion}	Delete text that {motion} moves over, reduce any
+			       *c<Space>* *v_c<Space>* *d<Space>* *v_d<Space>*
+["x]c<Space>{motion}	Delete text that {motion} moves over [into
+			register x], reduce any whitespace after it to a
+			single space, and start insert.
+{Visual}["x]c<Space>}	Delete selected text [into register x], reduce any
 			whitespace after it to a single space, and start
 			insert.
-d<Space>{motion}	Delete text that {motion} moves over and reduce any
+["x]d<Space>{motion}	Delete text that {motion} moves over [into register x]
+			and reduce any whitespace after it to a single space.
+{Visual}["x]d<Space>	Delete selected text [into register x] and reduce any
 			whitespace after it to a single space.
-							       *c<BS>* *d<BS>*
-c<BS>{motion}		Delete text that {motion} moves over, remove any
+					   *c<BS>* *v_c<BS>* *d<BS>* *v_d<BS>*
+["x]c<BS>{motion}	Delete text that {motion} moves over [into
+			register x], remove any whitespace after it, and start
+			insert.
+{Visual}["x]c<BS>	Delete selected text [into register x], remove any
 			whitespace after it, and start insert.
-d<BS>{motion}		Delete text that {motion} moves over and remove any
+["x]d<BS>{motion}	Delete text that {motion} moves over [into register x]
+			and remove any whitespace after it.
+{Visual}["x]d<BS>	Delete selected text [into register x] and remove any
 			whitespace after it.
 
 EXAMPLE					     *AdvancedDeleteOperators-example*
@@ -64,6 +81,8 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				*AdvancedDeleteOperators-dependencies*
 
 - Requires Vim 7.0 or higher.
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.039 or
+  higher.
 
 ==============================================================================
 CONFIGURATION			       *AdvancedDeleteOperators-configuration*
@@ -71,10 +90,17 @@ CONFIGURATION			       *AdvancedDeleteOperators-configuration*
 For a permanent configuration, put the following commands into your |vimrc|:
 configvar
 					       *AdvancedDeleteOperators-remap*
-plugmap
-==============================================================================
-INTEGRATION				 *AdvancedDeleteOperators-integration*
-
+If you want to use different mappings, map your keys to the following mapping
+targets _before_ sourcing the script (e.g. in your |vimrc|): >
+    nmap d<Space> <Plug>(DeleteCondenseWhitespaceOperator)
+    xmap ,d<Space> <Plug>(DeleteCondenseWhitespaceVisual)
+    nmap c<Space> <Plug>(ChangeCondenseWhitespaceOperator)
+    xmap ,c<Space> <Plug>(ChangeCondenseWhitespaceVisual)
+    nmap d<BS> <Plug>(DeleteRemoveWhitespaceOperator)
+    xmap ,d<BS> <Plug>(DeleteRemoveWhitespaceVisual)
+    nmap c<BS> <Plug>(ChangeRemoveWhitespaceOperator)
+    xmap ,c<BS> <Plug>(ChangeRemoveWhitespaceVisual)
+<
 ==============================================================================
 LIMITATIONS				 *AdvancedDeleteOperators-limitations*
 
@@ -87,7 +113,8 @@ IDEAS					       *AdvancedDeleteOperators-ideas*
 CONTRIBUTING				  *AdvancedDeleteOperators-contribute*
 
 Report any bugs, send patches, or suggest features via the issue tracker at
-https://github.com/inkarkat/vim-AdvancedDeleteOperators/issues or email (address below).
+https://github.com/inkarkat/vim-AdvancedDeleteOperators/issues or email
+(address below).
 
 ==============================================================================
 HISTORY					     *AdvancedDeleteOperators-history*
