@@ -18,11 +18,15 @@ set cpo&vim
 " This mapping repeats naturally, because it just sets global things, and Vim is
 " able to repeat the g@ on its own.
 nnoremap <expr> <Plug>(DeleteCondenseWhitespaceOperator) AdvancedDeleteOperators#Whitespace#OperatorExpression('d', 1)
+nnoremap <expr> <Plug>(ChangeCondenseWhitespaceOperator) AdvancedDeleteOperators#Whitespace#OperatorExpression('c', 1)
 
 " Repeat not defined in visual mode, but enabled through visualrepeat.vim.
 vnoremap <silent> <Plug>(DeleteCondenseWhitespaceVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \call AdvancedDeleteOperators#Whitespace#DeleteCondenseOperator('visual', 1)<CR>
+vnoremap <silent> <Plug>(ChangeCondenseWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\call AdvancedDeleteOperators#Whitespace#ChangeCondenseOperator('visual', 1)<CR>
 
 " A normal-mode repeat of the visual mapping is triggered by repeat.vim. It
 " establishes a new selection at the cursor position, of the same mode and size
@@ -35,6 +39,10 @@ nnoremap <silent> <Plug>(DeleteCondenseWhitespaceVisual)
 \ :<C-u>call setline('.', getline('.'))<Bar>
 \execute 'normal!' AdvancedDeleteOperators#VisualMode()<Bar>
 \call AdvancedDeleteOperators#Whitespace#DeleteCondenseOperator('visual', 1)<CR>
+nnoremap <silent> <Plug>(ChangeCondenseWhitespaceVisual)
+\ :<C-u>call setline('.', getline('.'))<Bar>
+\execute 'normal!' AdvancedDeleteOperators#VisualMode()<Bar>
+\call AdvancedDeleteOperators#Whitespace#ChangeCondenseOperator('visual', 1)<CR>
 
 
 if ! hasmapto('<Plug>(DeleteCondenseWhitespaceOperator)', 'n')
@@ -42,6 +50,12 @@ if ! hasmapto('<Plug>(DeleteCondenseWhitespaceOperator)', 'n')
 endif
 if ! hasmapto('<Plug>(DeleteCondenseWhitespaceVisual)', 'x')
     xmap ,d<Space> <Plug>(DeleteCondenseWhitespaceVisual)
+endif
+if ! hasmapto('<Plug>(ChangeCondenseWhitespaceOperator)', 'n')
+    nmap c<Space> <Plug>(ChangeCondenseWhitespaceOperator)
+endif
+if ! hasmapto('<Plug>(ChangeCondenseWhitespaceVisual)', 'x')
+    xmap ,c<Space> <Plug>(ChangeCondenseWhitespaceVisual)
 endif
 
 

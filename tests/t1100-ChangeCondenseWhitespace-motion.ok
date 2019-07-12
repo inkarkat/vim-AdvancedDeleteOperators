@@ -1,0 +1,12 @@
+[default text]
+Function is NEW for a reason.
+my	foo(here)not-separated
+my	foo(here) plain-separated
+my      foo(here)    space-separated
+my	foo(here)	tab-separated
+my	foo(here)	    softtabstop-separated
+my	foo(here)    		    mixed-separated
+my      foo(here)	trailing white 
+
+our	foo(here) bar(there) plain-separated
+EOF

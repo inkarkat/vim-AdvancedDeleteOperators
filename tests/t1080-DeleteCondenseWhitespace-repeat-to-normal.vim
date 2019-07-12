@@ -1,5 +1,5 @@
 " Test repeat of deleting text and condensing following whitespace to normal mode.
-set rtp?
+
 edit input.txt
 call vimtest#StartTap()
 call vimtap#Plan(4)
