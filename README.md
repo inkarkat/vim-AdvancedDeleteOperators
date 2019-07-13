@@ -29,7 +29,7 @@ but also remove trailing whitespace (or condense it to a single space).
 USAGE
 ------------------------------------------------------------------------------
 
-### WHITESPACE
+### ALSO WHITESPACE
 
     ["x]c<Space>{motion}    Delete text that {motion} moves over [into
                             register x], reduce any whitespace after it to a
@@ -51,6 +51,13 @@ USAGE
                             and remove any whitespace after it.
     {Visual}["x]d<BS>       Delete selected text [into register x] and remove any
                             whitespace after it.
+
+### TO ONE WHITESPACE
+
+    ["x]cr<Space>{motion}   Replace text that {motion} moves over [and put into
+                            register x] with a single space.
+    ["x]cr<Space>{motion}   Replace text that {motion} moves over [and put into
+                            register x] with a single tab.
 
 ### BLACK HOLE
 

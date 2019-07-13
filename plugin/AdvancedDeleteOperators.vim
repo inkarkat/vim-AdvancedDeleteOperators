@@ -91,6 +91,20 @@ endif
 
 
 
+"- to one whitespace -----------------------------------------------------------
+
+nnoremap <expr> <Plug>(ChangeToOneSpace) AdvancedDeleteOperators#OneWhitespace#OperatorExpression('Space')
+nnoremap <expr> <Plug>(ChangeToOneTab)   AdvancedDeleteOperators#OneWhitespace#OperatorExpression('Tab')
+
+if ! hasmapto('<Plug>(ChangeToOneSpace)', 'n')
+    nmap cr<Space> <Plug>(ChangeToOneSpace)
+endif
+if ! hasmapto('<Plug>(ChangeToOneTab)', 'n')
+    nmap cr<Tab> <Plug>(ChangeToOneTab)
+endif
+
+
+
 "- blackhole -------------------------------------------------------------------
 
 if ! exists('g:AdvancedDeleteOperators_no_blackhole_mappings')
