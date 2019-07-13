@@ -7,17 +7,23 @@
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 
-function! AdvancedDeleteOperators#OneWhitespace#SpaceOperator( type ) abort
+function! s:Operator( type, replacement ) abort
     let l:register = (v:register ==# '"' ? '' : '"' . v:register)
     " Note: Need to use an "inclusive" selection to make `] include the
     " last moved-over character.
     let l:save_selection = &selection
     set selection=inclusive
     try
-	execute 'silent normal! g`[' . (a:type ==# 'line' ? 'V' : 'v') . 'g`]' . l:register . "c \<C-\>\<C-n>"
+	execute 'silent normal! g`[' . (a:type ==# 'line' ? 'V' : 'v') . 'g`]' . l:register . 'c' . a:replacement . "\<C-\>\<C-n>"
     finally
 	let &selection = l:save_selection
     endtry
+endfunction
+function! AdvancedDeleteOperators#OneWhitespace#SpaceOperator( type ) abort
+    call s:Operator(a:type, ' ')
+endfunction
+function! AdvancedDeleteOperators#OneWhitespace#TabOperator( type ) abort
+    call s:Operator(a:type, "\t")
 endfunction
 function! AdvancedDeleteOperators#OneWhitespace#OperatorExpression( replacement ) abort
     let &opfunc = 'AdvancedDeleteOperators#OneWhitespace#' . a:replacement . 'Operator'
