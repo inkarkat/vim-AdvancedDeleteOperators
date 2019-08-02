@@ -25,7 +25,7 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
     endif
 
     let l:trailingWhitespacePattern = '\s*\%'']\s\+\|\s\+\%'']$\|\%''].\zs\s\+'
-    let l:startPos = getpos("'[")
+    let l:startPos = getpos("'[")[1:2]
     let l:endLnum = line("']")
     let l:endLineLen = len(getline(l:endLnum))
 
@@ -50,15 +50,17 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
     " the line's length for the calculation; this way, we don't need to capture
     " the deleted text nor do we need to account for multi-line text.
     "
-    " Note: Need to use an "exclusive" selection to exclude the current position
-    " (the first following whitespace).
-    let l:save_selection = &selection
-    set selection=exclusive
-    try
-	execute 'normal! vg`["' . v:register . 'd'
-    finally
-	let &selection = l:save_selection
-    endtry
+    if l:startPos != l:whitespaceStartPos
+	" Note: Need to use an "exclusive" selection to exclude the current position
+	" (the first following whitespace).
+	let l:save_selection = &selection
+	set selection=exclusive
+	try
+	    execute 'normal! vg`["' . v:register . 'd'
+	finally
+	    let &selection = l:save_selection
+	endtry
+    endif
     let l:endLineDeleteOffset = l:endLineLen - len(getline(l:endLnum))
 
     " Condense / delete the trailing whitespace.
