@@ -41,7 +41,7 @@ function! s:Operator( operator, keepCnt, type, ... ) abort
     endif
     let l:isWhitespaceAtEndOfLine = (search('\%(' . l:trailingWhitespacePattern . '\)$', 'cnW') != 0)
     let l:whitespaceStartPos = searchpos(l:trailingWhitespacePattern, 'cW', l:endLnum)
-    let l:whitespace = ingo#text#Get(getpos('.')[1:2], l:whitespaceEndPos)
+    let l:whitespace = ingo#text#Get(l:whitespaceStartPos, l:whitespaceEndPos)
 
     " If we'd remove the trailing whitespace first, we'd run into problems at
     " the end of the line, as we can't position the cursor behind the motion /
