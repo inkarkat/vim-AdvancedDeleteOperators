@@ -2,7 +2,7 @@
 
 edit input.txt
 call vimtest#StartTap()
-call vimtap#Plan(0)
+call vimtap#Plan(4)
 
 4normal Wcr f)
 call Assert('"', 4, 'foo(here)', 'my	  plain-separated', 'replace to space with f motion')
