@@ -1,8 +1,9 @@
 " AdvancedDeleteOperators/Whitespace.vim: Operators that work on trailing whitespace.
 "
 " DEPENDENCIES:
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2019 Ingo Karkat
+" Copyright: (C) 2019-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -93,19 +94,7 @@ function! AdvancedDeleteOperators#Whitespace#ChangeRemoveOperator( type, ...) ab
 endfunction
 
 function! AdvancedDeleteOperators#Whitespace#OperatorExpression( operator, keepCnt ) abort
-    let &opfunc = 'AdvancedDeleteOperators#Whitespace#' . s:GetName(a:operator, a:keepCnt) . 'Operator'
-
-    let l:keys = 'g@'
-
-    if ! &l:modifiable || &l:readonly
-	" Probe for "Cannot make changes" error and readonly warning via a no-op
-	" dummy modification.
-	" In the case of a nomodifiable buffer, Vim will abort the normal mode
-	" command chain, discard the g@, and thus not invoke the operatorfunc.
-	let l:keys = ":call setline('.', getline('.'))\<CR>" . l:keys
-    endif
-
-    return l:keys
+    return ingo#mapmaker#OpfuncExpression('AdvancedDeleteOperators#Whitespace#' . s:GetName(a:operator, a:keepCnt) . 'Operator')
 endfunction
 
 let &cpo = s:save_cpo

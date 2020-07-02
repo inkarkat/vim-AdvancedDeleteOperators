@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2015-2019 Ingo Karkat
+" Copyright: (C) 2015-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -123,7 +123,7 @@ endif
 
 nnoremap <expr> <SID>(DeleteCurrentAndFollowingEmptyLines) AdvancedDeleteOperators#Remainder#DeleteCurrentAndFollowingEmptyLines()
 nnoremap <script> <Plug>(DeleteCurrentAndFollowingEmptyLine) D<SID>(DeleteCurrentAndFollowingEmptyLines)
-nnoremap <expr> <Plug>(DeleteCurrentAndFollowingEmptyOperator) AdvancedDeleteOperators#Remainder#DeleteCurrentAndFollowingEmptyLinesOperatorExpression()
+nnoremap <expr> <Plug>(DeleteCurrentAndFollowingEmptyOperator) ingo#mapmaker#OpfuncExpression('AdvancedDeleteOperators#Remainder#DeleteCurrentAndFollowingEmptyLinesOperator')
 xnoremap <script> <Plug>(DeleteCurrentAndFollowingEmptyVisual) d<SID>(DeleteCurrentAndFollowingEmptyLines)
 if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyLine)', 'n')
     nmap dDD <Plug>(DeleteCurrentAndFollowingEmptyLine)

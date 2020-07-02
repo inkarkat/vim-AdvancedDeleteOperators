@@ -144,7 +144,7 @@ To uninstall, use the |:RmVimball| command.
 DEPENDENCIES				*AdvancedDeleteOperators-dependencies*
 
 - Requires Vim 7.0 or higher.
-- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.039 or
+- Requires the |ingo-library.vim| plugin (vimscript #4433), version 1.042 or
   higher.
 
 ==============================================================================
@@ -197,7 +197,7 @@ Started development as separate plugin.
 Defined first mapping as part of my personal customizations.
 
 ==============================================================================
-Copyright: (C) 2011-2019 Ingo Karkat
+Copyright: (C) 2011-2020 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
