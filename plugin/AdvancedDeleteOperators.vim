@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin
 "
-" Copyright: (C) 2015-2020 Ingo Karkat
+" Copyright: (C) 2015-2021 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -132,7 +132,7 @@ if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyOperator)', 'n')
     nmap dD <Plug>(DeleteCurrentAndFollowingEmptyOperator)
 endif
 if ! hasmapto('<Plug>(DeleteCurrentAndFollowingEmptyVisual)', 'v')
-    nmap ,dD <Plug>(DeleteCurrentAndFollowingEmptyVisual)
+    xmap ,dD <Plug>(DeleteCurrentAndFollowingEmptyVisual)
 endif
 
 
